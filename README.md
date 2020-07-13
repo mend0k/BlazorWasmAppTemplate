@@ -1,6 +1,8 @@
 # BlazorWasmAppTemplate
 Starter template for a Blazor Web Assembly project
 
+NOTE: Does not work on VS 2013, confirmed working on VS 2019. Also please read current status on dapper wrapper if you plan on using it here: https://github.com/mend0k/DapperWrapper
+
 
 Blazor Webassembly template with custom authentication using JWT based authentication (you can still add 3rd party auth like google auth etc... if you desire) and SQL data access.  Template is currently using Blazor WebAssembly version 3.2.0
 
