@@ -35,4 +35,4 @@ Examples:
   b. "_model.SelectAll<User>(); // returns all records in the User table
   
   
-  c. "_model.SelectWhereOrderByJoin(tbl1Name, tbl2Name, joinOnCol, sWhere = "", sOrderBy = "")" // joins tables 1 on table 2 on the specified join col with optional sWhere & sOrderBy params
+  c. "_model.SelectWhereOrderByJoin(tbl1Name, tbl2Name, joinOn, sWhere = "", sOrderBy = "")" // joins tables 1 on table 2 on the specified join column with optional sWhere & sOrderBy params
