@@ -20,9 +20,19 @@ SIDE NOTE: 'DapperWrapper' like its name implies... acts as a wrapper for the da
 
 
 Instead of setting up connection, base classes and interfaces, writing out tedious and/or long queries & "sql boiler code" you can just:
+
 1. Ensure that your default connection string in your appsettings.json file is called "Default"
+
 2. Perform a db transaction in a single line. 
+
+
 Examples:
+
+
   a. "_model.LoadRecordWhere<User>("FirstName = 'paul'")"; // returns the first record of model of type 'User' with a first name of 'paul'
+  
+  
   b. "_model.SelectAll<User>(); // returns all records in the User table
+  
+  
   c. "_model.SelectWhereOrderByJoin(tbl1Name, tbl2Name, joinOnCol, sWhere = "", sOrderBy = "")" // joins tables 1 on table 2 on the specified join col with optional sWhere & sOrderBy params
