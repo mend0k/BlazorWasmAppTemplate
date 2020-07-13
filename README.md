@@ -5,7 +5,7 @@ Starter template for a Blazor Web Assembly project
 Blazor Webassembly template with custom authentication using JWT based authentication (you can still add 3rd party auth like google auth etc... if you desire) and SQL data access.  Template is currently using Blazor WebAssembly version 3.2.0
 
 
-A lot of code is blazor wasm's boiler plate code combined with samSandersonMS auth example code from MissionControl. I added sql access and comments trying to explain what's going on. 
+A lot of code is blazor wasm's template code combined with samSandersonMS auth example code from MissionControl. I added sql access and comments trying to explain what's going on. 
 
 
 - Built using Blazor WebAssembly version 3.2.0
