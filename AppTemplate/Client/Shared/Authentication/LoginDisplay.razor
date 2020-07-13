@@ -1,0 +1,22 @@
+﻿<AuthorizeView>
+    <Authorized>
+        <i class="material-icons">account_circle</i>
+        <span>
+            Hello, <strong>@context.User.Identity.Name</strong>!
+        </span>
+        <MdcButton OnClick="@loginDialog.LogOut">Log out</MdcButton>
+    </Authorized>
+    <NotAuthorized>
+        <MdcButton OnClick="@loginDialog.LogIn">Log in</MdcButton>
+    </NotAuthorized>
+</AuthorizeView>
+
+<LoginDialog @ref="@loginDialog" />
+
+@functions {
+    // we need this static LoginDialog component's class reference so we can access 
+    // it's methods and pass them in to components located within THIS (LoginDisplay) page.
+    LoginDialog loginDialog;
+    // reason for doing this is so we don't repeat code and centralize our authentication processes
+}
+

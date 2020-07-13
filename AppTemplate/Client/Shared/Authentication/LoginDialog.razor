@@ -1,0 +1,63 @@
+﻿@inject HttpClient Http
+@inject TokenAuthenticationStateProvider AuthStateProvider
+@using System.Text.Json 
+
+<!--This form is only used by the LOGIN method. The LOGOUT method only executes back end processes.-->
+<EditForm Model="@credentials" OnValidSubmit="@SubmitCredentials">
+    <DataAnnotationsValidator />
+    <MdcDialog @ref="dialog" Title="Log in">
+        <Body>
+            <MdcTextField Label="Username" @bind-Value="@credentials.UserName" />
+            <ValidationMessage For="@(() => credentials.UserName)" />
+
+            <MdcTextField Type="password" Label="Password" @bind-Value="@credentials.Password" />
+            <ValidationMessage For="@(() => credentials.Password)" />
+
+            @*<div class="mdc-form-field">
+                <MdcCheckbox Id="accept-terms" @bind-Value="@credentials.AcceptTerms" />
+                <label for="accept-terms">I accept the terms</label>
+            </div>
+            <ValidationMessage For="@(() => credentials.AcceptTerms)" />*@
+
+            @if (lastLoginFailed)
+            {
+                <p class="validation-message">Login failed. Check your password.</p>
+            }
+        </Body>
+        <Buttons>
+            <MdcButton Type="submit">Log in</MdcButton>
+            <MdcButton DialogAction="close" ButtonStyle="@MdcButton.None">Cancel</MdcButton>
+        </Buttons>
+    </MdcDialog>
+</EditForm>
+
+@functions {
+    MdcDialog dialog;
+    LoginCredentials credentials = new LoginCredentials();
+    bool lastLoginFailed;
+
+    public Task LogIn()
+        => dialog.ShowAsync();
+
+    public Task LogOut()
+        => AuthStateProvider.SetTokenAsync(null);
+
+    async Task SubmitCredentials()
+    {
+        var response = await Http.PostAsJsonAsync<LoginCredentials>("api/auth/login", credentials);
+
+        var result = await response.Content.ReadFromJsonAsync<LoginResult>();
+
+        lastLoginFailed = result.Token == null;
+        if (!lastLoginFailed)
+        {
+            // Success! Store token in underlying auth state service
+            await AuthStateProvider.SetTokenAsync(result.Token);
+            // since this is an injected scoped service, this authentication will persist throughout our entire app!
+
+            // Reset UI state
+            await dialog.HideAsync();
+            credentials = new LoginCredentials();
+        }
+    }
+}
